@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-int main() {
+int pierre_papier_ciseaux() {
 
     int player_won_rounds = 0;
     int computer_won_rounds = 0;
@@ -78,5 +78,16 @@ int main() {
         printf("player won the game\nscore: %d-%d\n", player_won_rounds, computer_won_rounds);
     if (computer_won_rounds == 3)
         printf("computer won the game\nscore: %d-%d\n", player_won_rounds, computer_won_rounds);
+    return 0;
+}
+
+int main(){
+    int play_again=1;
+    while(play_again==1){
+        pierre_papier_ciseaux();
+        printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
+        scanf("%d",&play_again);
+    }
+    printf("Retour aux choix de jeu");
     return 0;
 }
