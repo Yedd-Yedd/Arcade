@@ -5,35 +5,34 @@
 
 int main()
 {
-     char choix, choix_entier ;
+     int choix_entier=0;
     do
     {
         printf("Choisir une option dans le menu suivant : \
                \n\t Le jeu du pendu <1><return> \
                \n\t Pierre Feuille Ciseau <2><return> \
                \n\t MasterMind <3><return> \
-               \n\t Quitter <q><return> ") ;
+               \n\t Quitter <0><return> ") ;
         printf("\n\t\t Indiquez votre choix : ") ;
-        rewind(stdin) ;
-        choix = getch() ;
+
+        scanf("%d",&choix_entier);
 
 
         /*permet de passer du caractère ’i’ (code ASCII) à l’entier i */
         switch (choix_entier)
         {
         case 1 :
-            printf("Pendu");
-
+            printf("Pendu\n");
             break ;
         case 2 :
-             printf("Piere,Feuille, Ciseau");
+             printf("Piere,Feuille, Ciseau\n");
             break ;
         case 3 :
-            printf("MasterMind") ;
+            printf("MasterMind\n") ;
             break ;
         }
     }
-    while ( choix!='q' ) ;
+    while (  choix_entier !=0 ) ;
 
     return 0;
 }
