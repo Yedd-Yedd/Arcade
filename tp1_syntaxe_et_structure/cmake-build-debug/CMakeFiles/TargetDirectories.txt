@@ -1,3 +1,0 @@
-C:/Users/Yed/CLionProjects/tp1_syntaxe_et_structure/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/Yed/CLionProjects/tp1_syntaxe_et_structure/cmake-build-debug/CMakeFiles/tp1_syntaxe_et_structure.dir
-C:/Users/Yed/CLionProjects/tp1_syntaxe_et_structure/cmake-build-debug/CMakeFiles/edit_cache.dir
