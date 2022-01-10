@@ -99,7 +99,7 @@ int Hangman(int value){
     answer_state_fill(answer_state, strlen(hidden_word));
 
     // tant que les conditions de victoires/Defaites ne sont pas atteint la partie continue
-    while (letters_found < strlen(hidden_word)) {
+    while (strcasecmp(hidden_word,answer_state)!=0) {
         if (life == 0) {
             return (-1);
         }
@@ -131,7 +131,7 @@ int Hangman(int value){
         else if (strcmp(current_letter_choice, hidden_word) == 0){
             letters_found = value;
             printf("vous avez trouve le mot\n");
-            exit(0);
+            break;
         }
         // si il n'y pas assez ou trop de caractère.
         // POSSIBILITE DE FAIRE PERDRE UNE VIE EN CAS DERREUR
@@ -149,19 +149,34 @@ int Hangman(int value){
     return (0);
 }
 
-int main() {
+int pendu() {
 
+    int word_lenght = 13;
+    int play_again=1;
     // pour set la longueur d'un mot avant la partie,
     // mettre "int ac, char **av" dans les paramètres du main
     // mettre "atoi[av1];" dans les parametres de Hangman();
+    while(play_again==1){
+        srand(time(NULL));
+        printf("TP10: Les strings\n");
+        printf("Nouvelle partie\n");
+        if (Hangman(word_lenght) == 0){
+            printf("you win\n");
+        }
+        else
+        {
+            printf("loooooooser\n");
+        }
+        printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
+        scanf("%d",&play_again);
 
-    int word_lenght = 13;
-    srand(time(NULL));
-    printf("TP10: Les strings\n");
-    if (Hangman(word_lenght) == 0){
-        printf("you win\n");
     }
-    else
-        printf("loooooooser\n");
+    printf("Retour aux choix de jeu");
+
+    return 0;
+}
+
+int main(){
+    pendu();
     return 0;
 }
