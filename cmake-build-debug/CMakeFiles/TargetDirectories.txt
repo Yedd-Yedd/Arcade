@@ -1,0 +1,3 @@
+C:/Users/Yed/CLionProjects/Arcade/cmake-build-debug/CMakeFiles/Arcade.dir
+C:/Users/Yed/CLionProjects/Arcade/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Yed/CLionProjects/Arcade/cmake-build-debug/CMakeFiles/rebuild_cache.dir

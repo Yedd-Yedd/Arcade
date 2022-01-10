@@ -1,0 +1,3 @@
+C:/Users/Yed/CLionProjects/tp3_operations_sur_variables/cmake-build-debug/CMakeFiles/tp3_operations_sur_variables.dir
+C:/Users/Yed/CLionProjects/tp3_operations_sur_variables/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Yed/CLionProjects/tp3_operations_sur_variables/cmake-build-debug/CMakeFiles/rebuild_cache.dir
