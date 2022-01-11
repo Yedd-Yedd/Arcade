@@ -4,10 +4,6 @@
 #include <string.h>
 #include "mastermind.h"
 
-int *check_nb_char() {
-
-}
-
 int my_occurence_finder(char const *p1,const char *p2)
 {
    int i = 0;
@@ -26,13 +22,10 @@ int my_occurence_finder(char const *p1,const char *p2)
 
    // debug retour de fonction
    // printf("count = %d\n", count);
-   return count;
+   return (count);
 }
 
 int mastermind(){
-    int play_again=1;
-    while(play_again==1)
-    {
         const int tentativ_max = 3;
         int current_tentative = 1;
         int occurence = 0;
@@ -92,12 +85,9 @@ int mastermind(){
         //parti terminé (et perdu)
         if (current_tentative > tentativ_max){
             printf("you lose\n");
+            return (-1);
         }
-        printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
-        scanf("%d",&play_again);
-    }
-    printf("Retour aux choix de jeu");
-    return 0;
+    return (0);
 }
 
 /*int main() {

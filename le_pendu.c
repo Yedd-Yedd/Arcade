@@ -152,30 +152,19 @@ int Hangman(int value){
 }
 
 int pendu() {
-    int play_again=1;
-    while(play_again==1){
-        int word_lenght = 13;
-        // pour set la longueur d'un mot avant la partie,
-        // mettre "int ac, char **av" dans les paramètres du main
-        // mettre "atoi[av1];" dans les parametres de Hangman();
-        srand(time(NULL));
-        printf("TP10: Les strings\n");
-        printf("Nouvelle partie\n");
-        if (Hangman(word_lenght) == 0){
+
+    int word_lenght = 13;
+    printf("TP10: Les strings\n");
+    printf("Nouvelle partie\n");
+    srand(time(NULL));
+
+    if (Hangman(word_lenght) == 0){
             printf("you win\n");
         }
-        else
-        {
+    else        {
             printf("loooooooser\n");
-        }
-
-        printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
-        fflush(stdin);
-        scanf("%d",&play_again);
+            return (-1);
     }
-
-    printf("Retour aux choix de jeux");
-
     return 0;
 }
 

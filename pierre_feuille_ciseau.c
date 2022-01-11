@@ -5,9 +5,6 @@
 
 int pierre_papier_ciseaux() {
 
-    int play_again=1;
-    while(play_again==1){
-
         int player_won_rounds = 0;
         int computer_won_rounds = 0;
         int computer_sign = 0;
@@ -80,14 +77,11 @@ int pierre_papier_ciseaux() {
         }
         if (player_won_rounds == 3)
             printf("player won the game\nscore: %d-%d\n", player_won_rounds, computer_won_rounds);
-        if (computer_won_rounds == 3)
+        if (computer_won_rounds == 3) {
             printf("computer won the game\nscore: %d-%d\n", player_won_rounds, computer_won_rounds);
-
-        printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
-        scanf("%d",&play_again);
-    }
-    printf("Retour aux choix de jeu");
-    return 0;
+            return (-1);
+        }
+        return 0;
 }
 
 /*int main(){

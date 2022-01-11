@@ -49,9 +49,31 @@ cmake_ninja_workdir = C$:/Users/Yed/CLionProjects/Arcade/cmake-build-debug/
 
 build cmake_object_order_depends_target_Arcade: phony || CMakeFiles/Arcade.dir
 
+build CMakeFiles/Arcade.dir/le_pendu.c.obj: C_COMPILER__Arcade_Debug C$:/Users/Yed/CLionProjects/Arcade/le_pendu.c || cmake_object_order_depends_target_Arcade
+  DEP_FILE = CMakeFiles\Arcade.dir\le_pendu.c.obj.d
+  FLAGS = -g -std=gnu17
+  INCLUDES = -IC:/Users/Yed/CLionProjects/Arcade/.
+  OBJECT_DIR = CMakeFiles\Arcade.dir
+  OBJECT_FILE_DIR = CMakeFiles\Arcade.dir
+
+build CMakeFiles/Arcade.dir/pierre_feuille_ciseau.c.obj: C_COMPILER__Arcade_Debug C$:/Users/Yed/CLionProjects/Arcade/pierre_feuille_ciseau.c || cmake_object_order_depends_target_Arcade
+  DEP_FILE = CMakeFiles\Arcade.dir\pierre_feuille_ciseau.c.obj.d
+  FLAGS = -g -std=gnu17
+  INCLUDES = -IC:/Users/Yed/CLionProjects/Arcade/.
+  OBJECT_DIR = CMakeFiles\Arcade.dir
+  OBJECT_FILE_DIR = CMakeFiles\Arcade.dir
+
+build CMakeFiles/Arcade.dir/mastermind.c.obj: C_COMPILER__Arcade_Debug C$:/Users/Yed/CLionProjects/Arcade/mastermind.c || cmake_object_order_depends_target_Arcade
+  DEP_FILE = CMakeFiles\Arcade.dir\mastermind.c.obj.d
+  FLAGS = -g -std=gnu17
+  INCLUDES = -IC:/Users/Yed/CLionProjects/Arcade/.
+  OBJECT_DIR = CMakeFiles\Arcade.dir
+  OBJECT_FILE_DIR = CMakeFiles\Arcade.dir
+
 build CMakeFiles/Arcade.dir/main.c.obj: C_COMPILER__Arcade_Debug C$:/Users/Yed/CLionProjects/Arcade/main.c || cmake_object_order_depends_target_Arcade
   DEP_FILE = CMakeFiles\Arcade.dir\main.c.obj.d
-  FLAGS = -g -std=gnu99
+  FLAGS = -g -std=gnu17
+  INCLUDES = -IC:/Users/Yed/CLionProjects/Arcade/.
   OBJECT_DIR = CMakeFiles\Arcade.dir
   OBJECT_FILE_DIR = CMakeFiles\Arcade.dir
 
@@ -63,7 +85,7 @@ build CMakeFiles/Arcade.dir/main.c.obj: C_COMPILER__Arcade_Debug C$:/Users/Yed/C
 #############################################
 # Link the executable Arcade.exe
 
-build Arcade.exe: C_EXECUTABLE_LINKER__Arcade_Debug CMakeFiles/Arcade.dir/main.c.obj
+build Arcade.exe: C_EXECUTABLE_LINKER__Arcade_Debug CMakeFiles/Arcade.dir/le_pendu.c.obj CMakeFiles/Arcade.dir/pierre_feuille_ciseau.c.obj CMakeFiles/Arcade.dir/mastermind.c.obj CMakeFiles/Arcade.dir/main.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Arcade.dir
