@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include "mastermind.h"
 
 int *check_nb_char() {
 
@@ -30,7 +31,7 @@ int my_occurence_finder(char const *p1,const char *p2)
 
 int mastermind(){
     int play_again=1;
-    while(play_again==1){
+    while(play_again==1)
     {
         const int tentativ_max = 3;
         int current_tentative = 1;
@@ -99,7 +100,7 @@ int mastermind(){
     return 0;
 }
 
-int main() {
+/*int main() {
     mastermind();
     return 0;
-}
+}*/

@@ -1,0 +1,14 @@
+PLAYER_NAME:
+YED
+GAME:
+pierre_feuille_ciseau:		win 0/0 lose
+mastermind:					win 0/0 lose
+pendu:						win 0/0 lose
+
+PLAYER_NAME:
+TES
+GAME:
+pierre_feuille_ciseau:		win 0/0 lose
+mastermind:					win 0/0 lose
+pendu:						win 0/0 lose
+

@@ -29,7 +29,7 @@ pour télécharger la dernoère version via git : https://github.com/Yedd-Yedd/A
 
 ### NOTICE
 
-1 compiler le projet
-2 exécuter le binaire
-3(optionnel): taper un nom de joueur
-4 sélectionner le mode de jeu
+- 1 compiler le projet
+- 2 exécuter le binaire
+- 3(optionnel): taper un nom de joueur
+- 4 sélectionner le mode de jeu

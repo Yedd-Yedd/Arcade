@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include "le_pendu.h"
 
 // REMPLIT LETAT DE LA REPONSE AVEC DES _
 void answer_state_fill(char *answer_state, size_t size){
@@ -80,9 +81,10 @@ int Hangman(int value){
     // INITIALIZATION DES VARIABLES
     int life = 10;
     size_t letters_found = 0;
+    int endgame=0;
 
     char hidden_word[value];
-    char current_letter_choice[3];
+    char current_letter_choice[value];
     char *answer_state = malloc(value - 1);
     char player_answer[value - 1];
 
@@ -111,7 +113,7 @@ int Hangman(int value){
         fflush(stdin);
 
         // get letter, la lettre ne peut pas etre plus longue que le mot généré
-        fgets(current_letter_choice, value + 1, stdin);
+        fgets(current_letter_choice, value+1, stdin);
 
         //printf("current letter choice =%s\n", current_letter_choice);
         current_letter_choice[strcspn(current_letter_choice, "\n")] = 0;
@@ -129,6 +131,7 @@ int Hangman(int value){
         }
         // CHECK SI ON TENTE AVEC LE MOT EN ENTIER
         else if (strcmp(current_letter_choice, hidden_word) == 0){
+            printf("%s", current_letter_choice);
             letters_found = value;
             printf("vous avez trouve le mot\n");
             break;
@@ -140,8 +143,7 @@ int Hangman(int value){
             printf("1 lettre a la fois ou la reponse entiere\nIl vous reste %d vies\n", life);
         }
         else {
-
-            // life--;
+            life--;
             printf("Non, la reponse est fausse '%s' n'est pas dans le mot \"%s\", il vous reste %d vies\n",
                    current_letter_choice, answer_state, life);
         }
@@ -168,15 +170,16 @@ int pendu() {
         }
 
         printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
+        fflush(stdin);
         scanf("%d",&play_again);
     }
 
-    printf("Retour aux choix de jeu");
+    printf("Retour aux choix de jeux");
 
     return 0;
 }
 
-int main(){
+/*int main(){
     pendu();
     return 0;
-}
+}*/

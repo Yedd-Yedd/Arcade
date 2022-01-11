@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "pierre_feuille_ciseau.h"
 
 int pierre_papier_ciseaux() {
 
@@ -89,7 +90,7 @@ int pierre_papier_ciseaux() {
     return 0;
 }
 
-int main(){
+/*int main(){
     pierre_papier_ciseaux();
     return 0;
-}
+}*/
