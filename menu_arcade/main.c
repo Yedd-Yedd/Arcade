@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "le_pendu.h"
 #include "pierre_feuille_ciseau.h"
+#include "mastermind.h"
 
 int main()
 {
@@ -15,6 +16,7 @@ int main()
                \n\t Quitter <0><return> ") ;
         printf("\n\t\t Indiquez votre choix : ") ;
 
+        fflush(stdin);
         scanf("%d",&choix_entier);
 
 
@@ -23,12 +25,15 @@ int main()
         {
         case 1 :
             printf("Pendu\n");
+            pendu();
             break ;
         case 2 :
              printf("Piere,Feuille, Ciseau\n");
+             pierre_papier_ciseaux();
             break ;
         case 3 :
             printf("MasterMind\n") ;
+            mastermind();
             break ;
         }
     }

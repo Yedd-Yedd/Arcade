@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include "le_pendu.h"
 
 // REMPLIT LETAT DE LA REPONSE AVEC DES _
 void answer_state_fill(char *answer_state, size_t size){
@@ -49,7 +50,7 @@ void generate_random_word(char *word, int value){
     }
 
     word[i] = '\0';
-    // DEBUGG mot bien généré
+    // DEBUGG mot bien gÃ©nÃ©rÃ©
     printf("MOT GENERE  = %s\n", word);
 }
 
@@ -58,7 +59,7 @@ char *word_hidder(const char *current_letter_choice, const char *hidden_word, ch
 
     int i = 0;
 
-    // debug entrée fonction
+    // debug entrÃ©e fonction
     // printf("answer state = %s\n", answer_state);
     while (hidden_word[i] != '\0') {
         if (hidden_word[i] == current_letter_choice[0]){
@@ -80,13 +81,14 @@ int Hangman(int value){
     // INITIALIZATION DES VARIABLES
     int life = 10;
     size_t letters_found = 0;
+    int endgame=0;
 
     char hidden_word[value];
-    char current_letter_choice[3];
+    char current_letter_choice[value];
     char *answer_state = malloc(value - 1);
     char player_answer[value - 1];
 
-    // set les strings , évite de crash
+    // set les strings , Ã©vite de crash
     memset(player_answer, '\0', value + 1);
     memset(answer_state, '\0', value + 1);
     memset(current_letter_choice, '\0', value + 1);
@@ -94,7 +96,7 @@ int Hangman(int value){
     // debug pointeur existe
     // printf("player  est %s\n answer est %s\n", player_answer, answer_state);
 
-    // generation du mot aléatoire
+    // generation du mot alÃ©atoire
     generate_random_word(hidden_word, value);
     answer_state_fill(answer_state, strlen(hidden_word));
 
@@ -103,15 +105,15 @@ int Hangman(int value){
         if (life == 0) {
             return (-1);
         }
-        // on vide la chaine de caractère contenant la réponse de lutilisateur en stockant le retour de gets
+        // on vide la chaine de caractÃ¨re contenant la rÃ©ponse de lutilisateur en stockant le retour de gets
         memset(current_letter_choice, '\0', value + 1);
         printf("Proposer une lettre >");
 
         // clean la sortis standard
         fflush(stdin);
 
-        // get letter, la lettre ne peut pas etre plus longue que le mot généré
-        fgets(current_letter_choice, value + 1, stdin);
+        // get letter, la lettre ne peut pas etre plus longue que le mot gÃ©nÃ©rÃ©
+        fgets(current_letter_choice, value+1, stdin);
 
         //printf("current letter choice =%s\n", current_letter_choice);
         current_letter_choice[strcspn(current_letter_choice, "\n")] = 0;
@@ -129,19 +131,19 @@ int Hangman(int value){
         }
         // CHECK SI ON TENTE AVEC LE MOT EN ENTIER
         else if (strcmp(current_letter_choice, hidden_word) == 0){
+            printf("%s", current_letter_choice);
             letters_found = value;
             printf("vous avez trouve le mot\n");
             break;
         }
-        // si il n'y pas assez ou trop de caractère.
+        // si il n'y pas assez ou trop de caractÃ¨re.
         // POSSIBILITE DE FAIRE PERDRE UNE VIE EN CAS DERREUR
         else if (strlen(current_letter_choice) > 1 && strlen(current_letter_choice) + 1 != strlen(hidden_word)){
             life--;
             printf("1 lettre a la fois ou la reponse entiere\nIl vous reste %d vies\n", life);
         }
         else {
-
-            // life--;
+            life--;
             printf("Non, la reponse est fausse '%s' n'est pas dans le mot \"%s\", il vous reste %d vies\n",
                    current_letter_choice, answer_state, life);
         }
@@ -150,13 +152,12 @@ int Hangman(int value){
 }
 
 int pendu() {
-
-    int word_lenght = 13;
     int play_again=1;
-    // pour set la longueur d'un mot avant la partie,
-    // mettre "int ac, char **av" dans les paramètres du main
-    // mettre "atoi[av1];" dans les parametres de Hangman();
     while(play_again==1){
+        int word_lenght = 13;
+        // pour set la longueur d'un mot avant la partie,
+        // mettre "int ac, char **av" dans les paramÃ¨tres du main
+        // mettre "atoi[av1];" dans les parametres de Hangman();
         srand(time(NULL));
         printf("TP10: Les strings\n");
         printf("Nouvelle partie\n");
@@ -167,16 +168,18 @@ int pendu() {
         {
             printf("loooooooser\n");
         }
-        printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
-        scanf("%d",&play_again);
 
+        printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
+        fflush(stdin);
+        scanf("%d",&play_again);
     }
-    printf("Retour aux choix de jeu");
+
+    printf("Retour aux choix de jeux");
 
     return 0;
 }
 
-int main(){
+/*int main(){
     pendu();
     return 0;
-}
+}*/
