@@ -133,7 +133,7 @@ int Hangman(int value){
         else if (strcmp(current_letter_choice, hidden_word) == 0){
             printf("%s", current_letter_choice);
             letters_found = value;
-            printf("vous avez trouve le mot\n");
+            printf("\nvous avez trouve le mot\n");
             break;
         }
         // si il n'y pas assez ou trop de caractère.
