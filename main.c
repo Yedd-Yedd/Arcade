@@ -131,18 +131,25 @@ int read_file(FILE *pt_fichier,score *liste_score,int nb_joueur){
                &(liste_score[i].lose_pierre_papier_ciseau),&(liste_score[i].win_mastermind),&(liste_score[i].lose_mastermind));
         //printf("Nom : %s, score : %s",name,score);
     }
-    for(int i=0;i<3;i++){
-        printf("Nom : %s, win : %d, lose : %d \n",liste_score[i].nom, liste_score[i].win_pendu,liste_score[i].lose_pendu);
+}
+
+int nombre_ligne(FILE *pt_fichier){
+    int nb_ligne=0;
+    int c;
+    while((c=fgetc(pt_fichier))!= EOF){
+        if(c=='\n'){
+            nb_ligne++;
+        }
     }
+    return nb_ligne;
 }
 
 int main() {
     char player_name[5];
     int choix_entier=0;
     int nb_joueur=10;
-    score liste_score[10];
+    score liste_score[nb_joueur];
     FILE *pt_fichier = fopen("Scoring.txt", "r+");
-    read_file(pt_fichier,liste_score,nb_joueur);
 
     printf("please, choose a player name\nenter 3 letters  between A-Z\n");
     fgets(player_name, 5, stdin);
@@ -150,6 +157,9 @@ int main() {
     if (player_name[0] != '\n')
         player_setup(player_name);
     fflush(stdin);
+    nb_joueur=nombre_ligne(pt_fichier);
+    rewind(pt_fichier);
+    read_file(pt_fichier,liste_score,nb_joueur);
     do
     {
         printf("Choisir une option dans le menu suivant : \
