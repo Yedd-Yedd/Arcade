@@ -5,6 +5,10 @@
 #include "pierre_feuille_ciseau.h"
 #include "mastermind.h"
 
+void change_str(){
+
+}
+
 // CHANGE LE SCORE DU JOUEUR EN FONCTION DU JEU
 void updateprofile(int game_id, int state, char *player_name){
 
@@ -19,13 +23,15 @@ void updateprofile(int game_id, int state, char *player_name){
     while(fgets(buffer, bufferLength, pt_fichier)) {
         if (match_score == 1){
             switch (game_id) {
+                // JEU PENDU
                 case 1:
+                    // JEU GAGNE
                     if (state == 0){
-                        char *result = strdup(buffer);
-                        result[0]++;
-                        result[10] = '\0';
+                        char *result = "3";//strdup(buffer);
+                        //modification copie
                         printf("BUFFER = %s\n result = %s\n", buffer, result);
                         fwrite(result, sizeof(char), 1, pt_fichier);
+                        fclose(pt_fichier);
                     }
                     else {
                         fseek(pt_fichier, 2, SEEK_CUR);
@@ -208,7 +214,6 @@ int main() {
         }
     }
     while (  choix_entier !=0 ) ;
-
     return 0;
 
 }
