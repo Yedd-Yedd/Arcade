@@ -4,10 +4,8 @@
 #include "le_pendu.h"
 #include "pierre_feuille_ciseau.h"
 #include "mastermind.h"
-void score_change(char *player_name, int game_id){
 
-}
-
+// CHANGE LE SCORE DU JOUEUR EN FONCTION DU JEU
 void updateprofile(int game_id, int state, char *player_name){
 
     FILE *pt_fichier = fopen("../Scoring/Scoring.txt", "r+" );
@@ -16,24 +14,24 @@ void updateprofile(int game_id, int state, char *player_name){
 
     int match_player = 0;
     int match_score = 0;
-    long  i = 0;
 
+    // lire le fichier
     while(fgets(buffer, bufferLength, pt_fichier)) {
         if (match_score == 1){
             switch (game_id) {
                 case 1:
                     if (state == 0){
-                        char test = '1';
-                        char result = buffer[0];
-                        result++;
-                        fwrite(&test,1, sizeof(char), pt_fichier);
-                        fflush(pt_fichier);
+                        char *result = strdup(buffer);
+                        result[0]++;
+                        result[10] = '\0';
+                        printf("BUFFER = %s\n result = %s\n", buffer, result);
+                        fwrite(result, sizeof(char), 1, pt_fichier);
                     }
                     else {
                         fseek(pt_fichier, 2, SEEK_CUR);
-                        char *result = &buffer[0];
-                        *result++;
-                        fwrite(&result,sizeof(char*), 1, pt_fichier);
+                        char result = buffer[0];
+                        result++;
+                        fwrite(&result,sizeof(char), 1, pt_fichier);
                     }
                     break;
                 case 2:
@@ -41,13 +39,13 @@ void updateprofile(int game_id, int state, char *player_name){
                         fseek(pt_fichier, 4, SEEK_CUR);
                         char *result = &buffer[0];
                         *result++;
-                        fwrite(&result,sizeof(char*), 1, pt_fichier);
+                        fwrite(&result,sizeof(char), 1, pt_fichier);
                     }
                     else {
                         fseek(pt_fichier, 6, SEEK_CUR);
                         char *result = &buffer[0];
                         *result++;
-                        fwrite(&result,sizeof(char*), 1, pt_fichier);
+                        fwrite(&result,sizeof(char), 1, pt_fichier);
                     }
                     break;
                 case 3:
@@ -78,27 +76,21 @@ void updateprofile(int game_id, int state, char *player_name){
         }
     }
     fclose(pt_fichier);
-
-    char word[100];
-    char replace[100];
-    size_t size = 0;
-
-    fseek (pt_fichier, 0, SEEK_END);
-
-
-
 }
 
+// check si unb player du meme nom est déjà présent
 int check_existing_player(char *word){
 
     int wordExist=0;
     int bufferLength = 255;
     char line[bufferLength];
 
+    // read le fichier
     FILE* pt_fichier = fopen("../Scoring/Scoring.txt","r");
 
     while(fgets(line, bufferLength, pt_fichier))
     {
+        // si le mot est présent dans le fichier
         char *cmp = strstr(line, word);
         if (cmp != NULL)
         {
@@ -113,7 +105,7 @@ int check_existing_player(char *word){
         return (0);
 }
 
-
+// setup un profil de joueur
 int player_setup(char *player_name){
 
     int size = 0;
@@ -133,17 +125,17 @@ int player_setup(char *player_name){
             fputs("\n0/0 0/0 0/0\n", pt_fichier);
         }
         // si le fichier est déja remplis
-        if (size > 0) {
+        else if (size > 0) {
             if (check_existing_player(player_name) == 0) {
                 fputs("PLAYER_NAME:\n", pt_fichier);
                 fputs(player_name, pt_fichier);
                 fputs("\n0/0 0/0 0/0\n", pt_fichier);
             }
         }
+        fclose(pt_fichier);
     }
     else
         printf("profile failed to load\n");
-    fclose(pt_fichier);
     return (0);
 }
 
