@@ -5,85 +5,63 @@
 #include "pierre_feuille_ciseau.h"
 #include "mastermind.h"
 
-void change_str(){
+typedef struct SCORE
+{
+    char nom[3];
+    int win_pendu;
+    int lose_pendu;
+    int win_pierre_papier_ciseau;
+    int lose_pierre_papier_ciseau;
+    int win_mastermind;
+    int lose_mastermind;
+}score;
+
+// CHANGE LE SCORE DU JOUEUR EN FONCTION DU JEU
+void updateprofile(score* liste_score,char *player_name,int win, int jeu, int nb_joueur){
+    switch(jeu){
+    case 1:
+        for(int i=0;i<nb_joueur;i++){
+            if(win==1 && strcmp(player_name,liste_score[i].nom)==0){
+                liste_score[i].win_pendu+=1;
+            }
+            if(win==0 && strcmp(player_name,liste_score[i].nom)==0){
+                liste_score[i].lose_pendu+=1;
+            }
+        }
+        break;
+    case 2:
+        for(int i=0;i<nb_joueur;i++){
+            if(win==1 && strcmp(player_name,liste_score[i].nom)==0){
+                liste_score[i].win_pierre_papier_ciseau+=1;
+            }
+            if(win==0 && strcmp(player_name,liste_score[i].nom)==0){
+                liste_score[i].lose_pierre_papier_ciseau+=1;
+            }
+        }
+        break;
+    case 3:
+        for(int i=0;i<nb_joueur;i++){
+            if(win==1 && strcmp(player_name,liste_score[i].nom)==0){
+                liste_score[i].win_mastermind+=1;
+            }
+            if(win==0 && strcmp(player_name,liste_score[i].nom)==0){
+                liste_score[i].lose_mastermind+=1;
+            }
+        }
+        break;
+    }
 
 }
 
-// CHANGE LE SCORE DU JOUEUR EN FONCTION DU JEU
-void updateprofile(int game_id, int state, char *player_name){
-
-    FILE *pt_fichier = fopen("../Scoring/Scoring.txt", "r+" );
-    int bufferLength = 255;
-    char buffer[bufferLength];
-
-    int match_player = 0;
-    int match_score = 0;
-
-    // lire le fichier
-    while(fgets(buffer, bufferLength, pt_fichier)) {
-        if (match_score == 1){
-            switch (game_id) {
-                // JEU PENDU
-                case 1:
-                    // JEU GAGNE
-                    if (state == 0){
-                        char *result = "3";//strdup(buffer);
-                        //modification copie
-                        printf("BUFFER = %s\n result = %s\n", buffer, result);
-                        fwrite(result, sizeof(char), 1, pt_fichier);
-                        fclose(pt_fichier);
-                    }
-                    else {
-                        fseek(pt_fichier, 2, SEEK_CUR);
-                        char result = buffer[0];
-                        result++;
-                        fwrite(&result,sizeof(char), 1, pt_fichier);
-                    }
-                    break;
-                case 2:
-                    if (state == 0){
-                        fseek(pt_fichier, 4, SEEK_CUR);
-                        char *result = &buffer[0];
-                        *result++;
-                        fwrite(&result,sizeof(char), 1, pt_fichier);
-                    }
-                    else {
-                        fseek(pt_fichier, 6, SEEK_CUR);
-                        char *result = &buffer[0];
-                        *result++;
-                        fwrite(&result,sizeof(char), 1, pt_fichier);
-                    }
-                    break;
-                case 3:
-                    if (state == 0){
-                        fseek(pt_fichier, 8, SEEK_CUR);
-                        char *result = &buffer[0];
-                        *result++;
-                        fwrite(&result,sizeof(char*), 1, pt_fichier);
-                    }
-                    else {
-                        fseek(pt_fichier, 10, SEEK_CUR);
-                        char *result = &buffer[0];
-                        *result++;
-                        fwrite(&result,sizeof(char*), 1, pt_fichier);
-                    }
-                    break;
-            }
-            match_score = 0;
-        }
-        if (match_player == 1){
-            if (strncmp(player_name, buffer, strlen(player_name)) == 0){
-                match_score = 1;
-            }
-            match_player = 0;
-        }
-        if (strncmp("PLAYER_NAME:", buffer, strlen("PLAYER_NAME:")) == 0){
-            match_player = 1;
-        }
+void rewrite_file(score* liste_score,int nb_joueur){
+    FILE* pt_fichier = fopen("Scoring.txt","w");
+    rewind(pt_fichier);
+    for(int i=0;i<nb_joueur;i++){
+        fprintf(pt_fichier,"%s %d %d %d %d %d %d\n",liste_score[i].nom, liste_score[i].win_pendu, liste_score[i].lose_pendu, liste_score[i].win_pierre_papier_ciseau,liste_score[i].lose_pierre_papier_ciseau,
+                liste_score[i].win_mastermind,liste_score[i].lose_mastermind);
     }
     fclose(pt_fichier);
 }
-
 // check si unb player du meme nom est déjà présent
 int check_existing_player(char *word){
 
@@ -92,7 +70,7 @@ int check_existing_player(char *word){
     char line[bufferLength];
 
     // read le fichier
-    FILE* pt_fichier = fopen("../Scoring/Scoring.txt","r");
+    FILE* pt_fichier = fopen("Scoring.txt","r");
 
     while(fgets(line, bufferLength, pt_fichier))
     {
@@ -116,7 +94,7 @@ int player_setup(char *player_name){
 
     int size = 0;
     // créer des un fichier si inexistant
-    FILE* pt_fichier = fopen("../Scoring/Scoring.txt","a+");
+    FILE* pt_fichier = fopen("Scoring.txt","a+");
     player_name[strcspn(player_name, "\n")] = 0;
 
     // si le fichier est non ouvert/créer
@@ -126,16 +104,16 @@ int player_setup(char *player_name){
 
         // si le fichier est vide
         if (size == 0) {
-            fputs("PLAYER_NAME:\n", pt_fichier);
+            //fputs("PLAYER_NAME:\n", pt_fichier);
             fputs(player_name, pt_fichier);
-            fputs("\n0/0 0/0 0/0\n", pt_fichier);
+            fputs(" 0 0 0 0 0 0\n", pt_fichier);
         }
         // si le fichier est déja remplis
         else if (size > 0) {
             if (check_existing_player(player_name) == 0) {
-                fputs("PLAYER_NAME:\n", pt_fichier);
+                //fputs("\nPLAYER_NAME:\n", pt_fichier);
                 fputs(player_name, pt_fichier);
-                fputs("\n0/0 0/0 0/0\n", pt_fichier);
+                fputs(" 0 0 0 0 0 0\n", pt_fichier);
             }
         }
         fclose(pt_fichier);
@@ -145,10 +123,26 @@ int player_setup(char *player_name){
     return (0);
 }
 
-int main() {
+int read_file(FILE *pt_fichier,score *liste_score,int nb_joueur){
+    for(int i=0;i<nb_joueur;i++){
+        /*fscanf(pt_fichier,"%s %s",name,score);
+        printf("Nom : %s, score : %s",name,score);*/
+        fscanf(pt_fichier,"%s %d %d %d %d %d %d",liste_score[i].nom, &(liste_score[i].win_pendu),&(liste_score[i].lose_pendu),&(liste_score[i].win_pierre_papier_ciseau),
+               &(liste_score[i].lose_pierre_papier_ciseau),&(liste_score[i].win_mastermind),&(liste_score[i].lose_mastermind));
+        //printf("Nom : %s, score : %s",name,score);
+    }
+    for(int i=0;i<3;i++){
+        printf("Nom : %s, win : %d, lose : %d \n",liste_score[i].nom, liste_score[i].win_pendu,liste_score[i].lose_pendu);
+    }
+}
 
+int main() {
     char player_name[5];
     int choix_entier=0;
+    int nb_joueur=10;
+    score liste_score[10];
+    FILE *pt_fichier = fopen("Scoring.txt", "r+");
+    read_file(pt_fichier,liste_score,nb_joueur);
 
     printf("please, choose a player name\nenter 3 letters  between A-Z\n");
     fgets(player_name, 5, stdin);
@@ -176,11 +170,14 @@ int main() {
                 printf("Pendu\n");
                 while(play_again==1) {
                     if (pendu() == 0){
-                        updateprofile(choix_entier, 0, player_name);
+                        updateprofile(liste_score,player_name,1,choix_entier,nb_joueur);
+                        //updateprofile(choix_entier, 0, player_name);
                         // check retour pour le ratio
                     }
                     else
-                        updateprofile(choix_entier, 1, player_name);
+                        updateprofile(liste_score,player_name,0,choix_entier,nb_joueur);
+                        //updateprofile(choix_entier, 1, player_name);
+                    rewrite_file(liste_score,nb_joueur);
                     printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
                     fflush(stdin);
                     scanf("%d", &play_again);
@@ -191,8 +188,12 @@ int main() {
                 printf("Piere,Feuille, Ciseau\n");
                 while (play_again==1) {
                     if (pierre_papier_ciseaux() == 0){
-
+                        updateprofile(liste_score,player_name,1,choix_entier,nb_joueur);
                     }
+                    else{
+                        updateprofile(liste_score,player_name,0,choix_entier,nb_joueur);
+                    }
+                    rewrite_file(liste_score,nb_joueur);
                     printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
                     fflush(stdin);
                     scanf("%d",&play_again);
@@ -203,8 +204,12 @@ int main() {
                 printf("MasterMind\n");
                 while(play_again==1) {
                     if (mastermind() == 0){
-
+                        updateprofile(liste_score,player_name,1,choix_entier,nb_joueur);
                     }
+                    else{
+                        updateprofile(liste_score,player_name,0,choix_entier,nb_joueur);
+                    }
+                    rewrite_file(liste_score,nb_joueur);
                     printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
                     fflush(stdin);
                     scanf("%d",&play_again);
