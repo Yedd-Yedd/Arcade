@@ -149,7 +149,7 @@ int main() {
     int choix_entier=0;
     int nb_joueur=10;
     score liste_score[nb_joueur];
-    FILE *pt_fichier = fopen("Scoring.txt", "r+");
+    FILE *pt_fichier = fopen("Scoring.txt", "a+");
 
     printf("please, choose a player name\nenter 3 letters  between A-Z\n");
     fgets(player_name, 5, stdin);
@@ -160,13 +160,17 @@ int main() {
     nb_joueur=nombre_ligne(pt_fichier);
     rewind(pt_fichier);
     read_file(pt_fichier,liste_score,nb_joueur);
+    int i=0;
+    while (strcmp(player_name, liste_score[i].nom) != 0){
+        i++;
+    }
     do
     {
         printf("Choisir une option dans le menu suivant : \
-               \n\t Le jeu du pendu \t<1> \
-               \n\t Pierre Feuille Ciseau\t<2>\
-               \n\t MasterMind \t\t<3> \
-               \n\t Quitter\t\t<0> ") ;
+               \n\t Le jeu du pendu \t<1> %d/%d\
+               \n\t Pierre Feuille Ciseau\t<2> %d/%d\
+               \n\t MasterMind \t\t<3> %d/%d \
+               \n\t Quitter\t\t<0> ", liste_score[i].win_pendu, liste_score[i].lose_pendu, liste_score[i].win_pierre_papier_ciseau, liste_score[i].lose_pierre_papier_ciseau, liste_score[i].win_mastermind, liste_score[i].lose_mastermind);
         printf("\n\t Indiquez votre choix : ") ;
 
         fflush(stdin);
@@ -188,7 +192,7 @@ int main() {
                         updateprofile(liste_score,player_name,0,choix_entier,nb_joueur);
                         //updateprofile(choix_entier, 1, player_name);
                     rewrite_file(liste_score,nb_joueur);
-                    printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
+                    printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\nVictoires %d/%d Defaites\n", liste_score[i].win_pendu, liste_score[i].lose_pendu);
                     fflush(stdin);
                     scanf("%d", &play_again);
                 }
@@ -204,7 +208,7 @@ int main() {
                         updateprofile(liste_score,player_name,0,choix_entier,nb_joueur);
                     }
                     rewrite_file(liste_score,nb_joueur);
-                    printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
+                    printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\nVictoires %d/%d Defaites\n", liste_score[i].win_pierre_papier_ciseau, liste_score[i].lose_pierre_papier_ciseau);
                     fflush(stdin);
                     scanf("%d",&play_again);
                 }
@@ -220,7 +224,7 @@ int main() {
                         updateprofile(liste_score,player_name,0,choix_entier,nb_joueur);
                     }
                     rewrite_file(liste_score,nb_joueur);
-                    printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\n");
+                    printf("Voulez vous rejouez une partie ? 1-Oui 2-Non\nVictoires %d/%d Defaites\n", liste_score[i].win_mastermind, liste_score[i].lose_mastermind);
                     fflush(stdin);
                     scanf("%d",&play_again);
                 }
